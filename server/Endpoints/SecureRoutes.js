@@ -10,5 +10,6 @@ router.put("/Users/update",ValidationMiddleware("updateUser"),updateUser);
 router.patch("/Users/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);
 router.delete("/users/delete",deleteUser);
 
+// Post based routes
 
 module.exports = router;
