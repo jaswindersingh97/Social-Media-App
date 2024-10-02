@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+    "dev": "nodemon",
+    "build": "npm install",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",

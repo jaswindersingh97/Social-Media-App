@@ -13,10 +13,10 @@ app.use(corsConfig);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.get("helloWorld",(req,res)=>{
+//Test Route for ping
+app.get("/helloWorld",(req,res)=>{
     res.send("Hello World");
-})
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
