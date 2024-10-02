@@ -8,8 +8,8 @@ const connectDB = () =>{
 
     
     mongoose.connect(MONGO_URI,{
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true,
     });
     console.log("Mongo DB connected Successfully");}
     catch(error){
