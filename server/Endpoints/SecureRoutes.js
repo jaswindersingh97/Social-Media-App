@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {profile,updateUser} = require('./../Controllers/SecureControllers');
+const {profile,updateUser,UpdatePassword,deleteUser} = require('./../Controllers/SecureControllers');
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
 
+// User based routes
 router.get("/users/profile",profile);
 router.put("/Users/update",ValidationMiddleware("updateUser"),updateUser);
+router.patch("/Users/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);
+router.delete("/users/delete",deleteUser);
+
 
 module.exports = router;

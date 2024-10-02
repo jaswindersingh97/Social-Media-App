@@ -25,6 +25,9 @@ const AuthMiddleware = require('./Middlewares/AuthMiddleware');
 const SecureRoutes = require('./Endpoints/SecureRoutes');
 app.use("/api/secure",AuthMiddleware,SecureRoutes);
 
+const UnsecureRoutes = require('./Endpoints/UnsecureRoutes');
+app.use("/api/unsecure",UnsecureRoutes);
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("server is running on port", port);
