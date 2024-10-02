@@ -21,6 +21,10 @@ app.get("/helloWorld",(req,res)=>{
 const AuthRoutes = require('./Endpoints/AuthRoutes');
 app.use("/api/auth",AuthRoutes);
 
+const AuthMiddleware = require('./Middlewares/AuthMiddleware');
+const SecureRoutes = require('./Endpoints/SecureRoutes');
+app.use("/api/secure",AuthMiddleware,SecureRoutes);
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("server is running on port", port);
