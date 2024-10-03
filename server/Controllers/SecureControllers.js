@@ -67,6 +67,13 @@ const UpdatePassword = async(req,res)=>{
 const deleteUser = async (req, res) => {
     try {
         const { userId } = req.user;
+        const user = await User.findOne({_id:userId});
+        if(!user){
+            return res.status(500).json({error:"user doesn't exists"});
+        }
+
+        await Post.deleteMany({user:userId});
+
         const response = await User.findByIdAndDelete(userId);
         if (!response) {
             return res.status(404).json({ error: "User not found or already deleted" });
@@ -111,6 +118,12 @@ const DeletePost = async(req, res) =>{
             return res.status(400).json({error:"Either postId or UserId is wrong"});
         }
 
+        if (post.parentPost) {
+            await Post.findByIdAndUpdate(post.parentPost, {
+                $pull: { replies: postId }, // Pull by postId, not userId
+            });
+        }
+
         const response = await Post.deleteOne({_id:postId})
         res.status(200).json({message:"Post deleted successfully",response});
 
@@ -118,7 +131,7 @@ const DeletePost = async(req, res) =>{
         console.error("Error while deleting",error);
         res.status(500).json({error: "Server error while deleting a post"})
     }
-}
+};
 
 const UpdatePost = async(req,res) =>{
     try{

@@ -14,16 +14,17 @@ const {
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
 
 // User based routes
-router.get("/users/profile",profile);
-router.put("/Users/update",ValidationMiddleware("updateUser"),updateUser);
-router.patch("/Users/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);
-router.delete("/users/delete",deleteUser);
+router.get("/users/profile",profile);   // getting the logged in profile
+router.put("/Users/update",ValidationMiddleware("updateUser"),updateUser);  // Updating the Logged in users Profile
+router.patch("/Users/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);    // Updating the  Password
+router.delete("/users/delete",deleteUser);  //Deleting the user
 
 // Post based routes
-router.post("/posts",ValidationMiddleware("CreatePost"),CreatePost);
-router.delete("/posts/:postId",ValidationMiddleware("DeletePost",DeletePost));
-router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost);
+router.post("/posts",ValidationMiddleware("CreatePost"),CreatePost);    // Creating a post
+router.delete("/posts/:postId",ValidationMiddleware("DeletePost"),DeletePost);  // Deleting a post or a comment 
+router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost); // Updating a post
 
 // Comment and Like Management
-router.post("/comments",ValidationMiddleware("AddComment"),AddComment);
+router.post("/comments:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
+
 module.exports = router;
