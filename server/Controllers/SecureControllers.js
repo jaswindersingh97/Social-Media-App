@@ -1,3 +1,4 @@
+const Post = require("../Models/PostModel");
 const User = require("../Models/UserModel");
 const bcrypt = require('bcrypt');
 // Fetch user profile
@@ -78,4 +79,27 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { profile, updateUser, UpdatePassword, deleteUser };
+// Create a post
+const CreatePost = async(req, res) =>{
+    try{
+
+        const {userId} = req.user;
+        const {content, media} = req.body;
+
+        const response = await Post.create({
+            user:userId,
+            content:content,
+            media:media
+            });
+
+        return res.status(200).json("Post created successfully", response);
+    
+    }catch(error){
+        console.error("Post creation error:",error);
+        res.status(500).json({error:"Server error while creating a post"})
+    }
+};
+
+
+
+module.exports = { profile, updateUser, UpdatePassword, deleteUser, CreatePost, getPost};
