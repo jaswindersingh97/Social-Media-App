@@ -4,7 +4,7 @@ const Post = require("../Models/PostModel");
 // User based controller
 const getUser = async(req,res) =>{
     try{
-        const userId = req.param.userId;
+        const userId = req.params.userId;
         const response = await User.findOne({_id:userId});
 
         res.status(200).json({message:"user Found", response});
@@ -18,7 +18,7 @@ const getUser = async(req,res) =>{
 // Post based controllers
 const getPost = async(req,res) =>{
     try{
-        const {postId} = req.param.postId;
+        const {postId} = req.params;
         const response = await Post.findOne({_id:postId});
 
         res.status(200).json({message:"fetched post successfully", response});
@@ -30,7 +30,7 @@ const getPost = async(req,res) =>{
 
 const getPostsByUserId = async(req,res) =>{
     try{
-        const {userId} = req.param.userId;
+        const {userId} = req.params;
         const response = await Post.find({user:userId});
 
         res.status(200).json({message:"fetched posts successfully", response});

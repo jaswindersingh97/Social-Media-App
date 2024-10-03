@@ -100,6 +100,82 @@ const CreatePost = async(req, res) =>{
     }
 };
 
+const DeletePost = async(req, res) =>{
+    try{
+        const {userId} = req.user;
+        const {postId} = req.params;
 
+        const post = await Post.findOne({_id:postId,user:userId});
 
-module.exports = { profile, updateUser, UpdatePassword, deleteUser, CreatePost, getPost};
+        if(!post){
+            return res.status(400).json({error:"Either postId or UserId is wrong"});
+        }
+
+        const response = await Post.deleteOne({_id:postId})
+        res.status(200).json({message:"Post deleted successfully",response});
+
+    }catch(error){
+        console.error("Error while deleting",error);
+        res.status(500).json({error: "Server error while deleting a post"})
+    }
+}
+
+const UpdatePost = async(req,res) =>{
+    try{
+        const {postId} = req.params;
+        const {userId} = req.user;
+        const {content,media} = req.body;
+        const post = await Post.findOne({_id:postId,user:userId});
+
+        if(!post){
+            return res.status(400).json({error:"Either postId or UserId is wrong"});
+        };
+        
+        const response = await Post.findByIdAndUpdate(
+            {userId},
+            {content,media},
+            {new:true});
+        res.status(200).json({message:"Post updated successfully",response});
+
+    }catch(error){
+        console.error("error while updating post",error);
+        res.status(500).json({error:"Error while updating the post"});
+    }
+};
+
+const AddComment = async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const { userId } = req.user;
+        const { content, media } = req.body;
+        const post = await Post.findOne({ _id: postId });
+
+        if (!post) {
+            return res.status(400).json({ error: "Post doesn't exist" });
+        }
+
+        const user = await User.findOne({ _id: userId });
+
+        if (!user) {
+            return res.status(400).json({ error: "User doesn't exist" });
+        }
+
+        const comment = await Post.create({
+            user: userId,
+            content: content,
+            media: media,
+            parentPost: postId, 
+        });
+
+        await Post.findByIdAndUpdate(postId, {
+            $push: { replies: comment._id },
+        });
+
+        return res.status(201).json({ message: "Comment added successfully", comment });
+    } catch (error) {
+        console.error("Error while creating a comment", error);
+        return res.status(500).json({ error: "Server error while creating a comment" });
+    }
+};
+
+module.exports = { profile, updateUser, UpdatePassword, deleteUser, CreatePost, getPost, DeletePost, UpdatePost, AddComment};

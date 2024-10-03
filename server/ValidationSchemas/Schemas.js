@@ -54,5 +54,34 @@ const schemas = {
             userId: Joi.string().hex().length(24).required(), // Validate userId in the params
         }),
     },
+    DeletePost:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(), // Validate postId in the params
+        }),
+    },
+    UpdatePost:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(), // Validate postId in the params
+        }),
+        body: Joi.object({
+            content: Joi.string().max(500).required(),
+            media: Joi.array().items({
+                url: Joi.string().uri().required(),
+                type: Joi.string().valid('image', 'video', 'link').required(),
+            }).optional(),
+        }),
+    },
+    AddComment:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(), // Validate postId in the params
+        }),
+        body: Joi.object({
+            content: Joi.string().max(500).required(),
+            media: Joi.array().items({
+                url: Joi.string().uri().required(),
+                type: Joi.string().valid('image', 'video', 'link').required(),
+            }).optional(),
+        }),
+    }
 };
 module.exports = schemas;
