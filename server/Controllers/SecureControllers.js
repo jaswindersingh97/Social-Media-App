@@ -118,11 +118,12 @@ const DeletePost = async(req, res) =>{
             return res.status(400).json({error:"Either postId or UserId is wrong"});
         }
 
-        if (post.parentPost) {
-            await Post.findByIdAndUpdate(post.parentPost, {
-                $pull: { replies: postId }, // Pull by postId, not userId
-            });
-        }
+        // if (post.parentPost) {
+        //     await Post.findByIdAndUpdate(post.parentPost, {
+        //         $pull: { replies: postId }, // Pull by postId, not userId
+        //     });
+        // }
+        // since we can get the reference that a comment was present before deletion
 
         const response = await Post.deleteOne({_id:postId})
         res.status(200).json({message:"Post deleted successfully",response});
