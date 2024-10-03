@@ -12,13 +12,13 @@ const {
     AddComment,
     LikePost,
     followUser,
+    privacy,
     } = require('./../Controllers/SecureControllers');
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
 
 // User based routes
 router.get("/users/profile",profile);   // getting the logged in profile
 router.put("/Users/update",ValidationMiddleware("updateUser"),updateUser);  // Updating the Logged in users Profile
-router.patch("/Users/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);    // Updating the  Password
 router.delete("/users/delete",deleteUser);  //Deleting the user
 
 // Post based routes
@@ -30,6 +30,10 @@ router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost); // U
 router.post("/comments:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
 router.patch("/like/:postId",ValidationMiddleware("LikePost"),LikePost);    // liking a post
 
-//Follow System
+// Follow System
 router.post("/users/follow:memberId",ValidationMiddleware("followUser"),followUser) // to follow and unfollow a user
+
+// Settings routes
+router.patch("/Users/settings/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);    // Updating the  Password
+router.patch("/Users/settings/privacy",ValidationMiddleware("privacy"),privacy);    // Updating the profile type 
 module.exports = router;

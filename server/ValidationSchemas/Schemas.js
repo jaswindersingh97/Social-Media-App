@@ -118,5 +118,10 @@ const schemas = {
             userId: Joi.string().hex().length(24).required(),
         }),
     },
+    privacy:{
+        body: Joi.object({
+            profileType: Joi.string().valid('public','private').required(),
+        }),
+    },
 };
 module.exports = schemas;

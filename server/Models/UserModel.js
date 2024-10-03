@@ -53,8 +53,8 @@ const userSchema = new mongoose.Schema({
     }],
     profileType: {
         type: String,
-        enum: ['personal', 'private'],
-        default: 'personal'
+        enum: ['public', 'private'],
+        default: 'public'
     },
     createdAt: {
         type: Date,

@@ -260,6 +260,25 @@ const followUser = async(req,res) => {
     }
 };
 
+const privacy = async(req,res) =>{
+    try{
+        const {userId} = req.user;
+        const {profileType} = req.body;
+        const user = User.findByIdAndUpdate(
+            userId,
+            {profileType},
+            {new:true}
+        );
+        if(!user){
+            return res.status(400).json({error:"User doesn't exists"});
+        }
+        res.status(200).json({message:"Updated the privacy successfully",user});
+    }catch(error){
+        console.error("Error while updating the privacy",error);
+        return res.status(500).json({error:"Server error while updating the privacy of user"})
+    }
+};
+
 module.exports = { 
     profile, 
     updateUser, 
@@ -272,5 +291,6 @@ module.exports = {
     AddComment,
     LikePost,
     followUser,
+    privacy,
 };
 
