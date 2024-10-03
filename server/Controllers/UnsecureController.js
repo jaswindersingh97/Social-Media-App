@@ -84,7 +84,8 @@ const getFullPost = async(req,res)=>{
         return res.status(500).json({error:"Server error while fetching a post"})
     }
 
-}
+};
+
 const getPostsByUserId = async(req,res) =>{
     try{
         const {userId} = req.params;
@@ -95,6 +96,41 @@ const getPostsByUserId = async(req,res) =>{
         console.error("Error fetching posts by user", error);
         return res.status(500).json({error:"Server error while fetching a user posts"})
     };
-}
+};
 
-module.exports = {getUser, getPost, getComments, getLikes, getFullPost, getPostsByUserId, }
+const getFollowers = async(req,res) => {
+    try{
+        const {userId} = req.params;
+
+        const user = await User.findById(userId).select('followers');
+
+        if(!user){
+            res.status(400).json({error:"User not found"});
+        }
+        res.status(200).json({message:"followers fetched successfully",user});
+        
+    }catch(error){
+        console.error("error while fetching followers",error);
+        return res.status(500).json({error:"Server error while fetching followers"})
+    }
+};
+
+const getFollowing = async(req,res) => {
+    try{
+        const {userId} = req.params;
+
+        const user = await User.findById(userId).select('following');
+
+        if(!user){
+            res.status(400).json({error:"User not found"});
+        }
+        res.status(200).json({message:"following fetched successfully",user});
+        
+    }catch(error){
+        console.error("error while fetching following",error);
+        return res.status(500).json({error:"Server error while fetching following"})
+    }
+};
+
+
+module.exports = {getUser, getPost, getComments, getLikes, getFullPost, getPostsByUserId, getFollowers,getFollowing}

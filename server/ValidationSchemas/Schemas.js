@@ -107,6 +107,16 @@ const schemas = {
         params: Joi.object({
             memberId: Joi.string().hex().length(24).required(),
         }),
-    }
+    },
+    getFollowers:{
+        params: Joi.object({
+            userId: Joi.string().hex().length(24).required(),
+        }),
+    },
+    getFollowing:{
+        params: Joi.object({
+            userId: Joi.string().hex().length(24).required(),
+        }),
+    },
 };
 module.exports = schemas;
