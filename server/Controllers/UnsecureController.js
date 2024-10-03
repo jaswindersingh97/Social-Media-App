@@ -37,7 +37,7 @@ const getPostsByUserId = async(req,res) =>{
     }catch(error){
         console.error("Error fetching posts by user", error);
         return res.status(500).json({error:"Server error while fetching a user posts"})
-    }
+    };
 }
 
 module.exports = {getUser, getPost, getPostsByUserId}
