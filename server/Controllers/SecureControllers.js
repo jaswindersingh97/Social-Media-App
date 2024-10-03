@@ -192,4 +192,42 @@ const AddComment = async (req, res) => {
     }
 };
 
-module.exports = { profile, updateUser, UpdatePassword, deleteUser, CreatePost, getPost, DeletePost, UpdatePost, AddComment};
+const LikePost = async(req,res) =>{
+    try{
+        const {postId} = req.params;
+        const {userId} = req.user;
+
+        const user = await User.findOne({_id:userId});
+
+        if(!user){
+            return res.status(400).json({error:"user doesn't exists"});
+        }
+
+        const response = await Post.findByIdAndUpdate(postId,{
+            likes:{$push:{userId}}
+        },{new:true});
+
+        if(!response){
+            return res.status(400).json({error:"Post doesn't exists"});
+        }
+        
+        return res.status(200).json({message:"Liked the post successfully", response});
+    }catch(error){
+        console.error("error while liking a post",error);
+        return res.status(500).json({error:"server error while liking a comment"})
+    }
+}
+
+module.exports = { 
+    profile, 
+    updateUser, 
+    UpdatePassword, 
+    deleteUser, 
+    CreatePost, 
+    getPost, 
+    DeletePost, 
+    UpdatePost, 
+    AddComment,
+    LikePost
+};
+

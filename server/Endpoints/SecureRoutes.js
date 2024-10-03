@@ -9,7 +9,8 @@ const {
     CreatePost,
     DeletePost,
     UpdatePost,
-    AddComment
+    AddComment,
+    LikePost,
     } = require('./../Controllers/SecureControllers');
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
 
@@ -26,5 +27,5 @@ router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost); // U
 
 // Comment and Like Management
 router.post("/comments:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
-
+router.patch("/like/:postId",ValidationMiddleware("LikePost"),LikePost);    // liking a post
 module.exports = router;
