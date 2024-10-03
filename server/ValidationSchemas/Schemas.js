@@ -82,6 +82,21 @@ const schemas = {
                 type: Joi.string().valid('image', 'video', 'link').required(),
             }).optional(),
         }),
-    }
+    },
+    getComments:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(),
+        }),
+    },
+    getLikes:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(),
+        }),
+    },
+    getFullPost:{
+        params: Joi.object({
+            postId: Joi.string().hex().length(24).required(),
+        }),
+    },
 };
 module.exports = schemas;

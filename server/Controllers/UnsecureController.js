@@ -28,6 +28,63 @@ const getPost = async(req,res) =>{
     }
 };
 
+
+const getComments = async(req,res) =>{
+    try{
+        const {postId} = req.params;
+        const response = await Post.findOne({_id:postId}).populate({
+            path:'replies',
+            populate:{
+                path:'User',
+                select:'username profilePicture'
+            }
+        });
+
+        res.status(200).json({message:"fetched post successfully", response});
+    }catch(error){
+        console.error("Error while fetching post",error);
+        return res.status(500).json({error:"Server error while fetching a post"})
+    }
+};
+
+const getLikes = async(req,res) =>{
+    try{
+        const {postId} = req.params;
+        const response = await Post.findOne({_id:postId}).populate({
+            path:'likes',
+            select:'username profilePicture'
+        });
+
+        res.status(200).json({message:"fetched post successfully", response});
+    }catch(error){
+        console.error("Error while fetching post",error);
+        return res.status(500).json({error:"Server error while fetching a post"})
+    }
+};
+
+const getFullPost = async(req,res)=>{
+    try{
+        const {postId} = req.params;
+        const response = await Post.findOne({_id:postId})
+        .populate({
+            path:'likes',
+            select:'username profilePicture'
+        })
+        .populate({
+            path:'replies',
+            populate:{
+                path:'User',
+                select:'username profilePicture'
+            }
+        });
+
+        res.status(200).json({message:"fetched post successfully", response});
+    }catch(error){
+        console.error("Error while fetching post",error);
+        return res.status(500).json({error:"Server error while fetching a post"})
+    }
+
+}
 const getPostsByUserId = async(req,res) =>{
     try{
         const {userId} = req.params;
@@ -40,4 +97,4 @@ const getPostsByUserId = async(req,res) =>{
     };
 }
 
-module.exports = {getUser, getPost, getPostsByUserId}
+module.exports = {getUser, getPost, getComments, getLikes, getFullPost, getPostsByUserId, }
