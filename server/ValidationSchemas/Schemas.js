@@ -103,5 +103,10 @@ const schemas = {
             postId: Joi.string().hex().length(24).required(),
         }),
     },
+    followUser:{
+        params: Joi.object({
+            memberId: Joi.string().hex().length(24).required(),
+        }),
+    }
 };
 module.exports = schemas;

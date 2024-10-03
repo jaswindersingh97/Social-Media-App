@@ -192,31 +192,73 @@ const AddComment = async (req, res) => {
     }
 };
 
-const LikePost = async(req,res) =>{
-    try{
-        const {postId} = req.params;
-        const {userId} = req.user;
-
-        const user = await User.findOne({_id:userId});
-
-        if(!user){
-            return res.status(400).json({error:"user doesn't exists"});
-        }
-
-        const response = await Post.findByIdAndUpdate(postId,{
-            likes:{$push:{userId}}
-        },{new:true});
-
-        if(!response){
-            return res.status(400).json({error:"Post doesn't exists"});
-        }
+const LikePost = async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const { userId } = req.user;
         
-        return res.status(200).json({message:"Liked the post successfully", response});
-    }catch(error){
-        console.error("error while liking a post",error);
-        return res.status(500).json({error:"server error while liking a comment"})
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({ error: "User doesn't exist" });
+        }
+
+        const post = await Post.findById(postId).select('likes');
+        if (!post) {
+            return res.status(400).json({ error: "Post doesn't exist" });
+        }
+        const hasLiked = post.likes.some(like => like.toString() === userId);
+
+        if (hasLiked) {
+            const response = await Post.findByIdAndUpdate(
+                postId,
+                { $pull: { likes: userId } },
+                { new: true }
+            );
+            return res.status(200).json({ message: "Post disliked successfully", response });
+        } else {
+            const response = await Post.findByIdAndUpdate(
+                postId,
+                { $push: { likes: userId } }, 
+                { new: true }
+            );
+            return res.status(200).json({ message: "Post liked successfully", response });
+        }
+    } catch (error) {
+        console.error("Error while toggling like/dislike", error);
+        return res.status(500).json({ error: "Server error while toggling like/dislike" });
     }
-}
+};
+
+const followUser = async(req,res) => {
+    try{
+        const {userId} = req.user;
+        const {memberId} = req.params;
+        if (userId === memberId) {
+            return res.status(400).json({ error: "You cannot follow yourself" });
+        }
+        const member = await User.findById(memberId).select('followers blockedUsers');
+        if (!member) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        if (member.blockedUsers.includes(userId)) {
+            return res.status(403).json({ error: "You are blocked by this user" });
+        }
+        let message;
+        if (member.followers.includes(userId)) {
+            await User.findByIdAndUpdate(memberId, { $pull: { followers: userId } });
+            await User.findByIdAndUpdate(userId, { $pull: { following: memberId } });
+            message = `You have unfollowed ${member.username}`;
+        } else {
+            await User.findByIdAndUpdate(memberId, { $push: { followers: userId } });
+            await User.findByIdAndUpdate(userId, { $push: { following: memberId } });
+            message = `You are now following ${member.username}`;
+        }
+        return res.status(200).json({ message });
+    }catch(error){
+        console.error("Error while following user", error);
+        return res.status(500).json({error:"Server error while following a user"});
+    }
+};
 
 module.exports = { 
     profile, 
@@ -228,6 +270,7 @@ module.exports = {
     DeletePost, 
     UpdatePost, 
     AddComment,
-    LikePost
+    LikePost,
+    followUser,
 };
 

@@ -11,6 +11,7 @@ const {
     UpdatePost,
     AddComment,
     LikePost,
+    followUser,
     } = require('./../Controllers/SecureControllers');
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
 
@@ -28,4 +29,7 @@ router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost); // U
 // Comment and Like Management
 router.post("/comments:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
 router.patch("/like/:postId",ValidationMiddleware("LikePost"),LikePost);    // liking a post
+
+//Follow System
+router.post("/users/follow:memberId",ValidationMiddleware("followUser"),followUser) // to follow and unfollow a user
 module.exports = router;

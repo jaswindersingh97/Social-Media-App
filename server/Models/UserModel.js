@@ -35,6 +35,27 @@ const userSchema = new mongoose.Schema({
         enum: ['male', 'female', 'other'], // Possible gender values
         default: 'other', // Default value if none is provided  
     },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    blockedUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    mutedUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    profileType: {
+        type: String,
+        enum: ['personal', 'private'],
+        default: 'personal'
+    },
     createdAt: {
         type: Date,
         default: Date.now,
