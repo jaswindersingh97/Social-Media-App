@@ -21,12 +21,14 @@ app.get("/helloWorld",(req,res)=>{
 const AuthRoutes = require('./Endpoints/AuthRoutes');
 app.use("/api/auth",AuthRoutes);
 
+
+const RequireAuthentication = require('./Middlewares/RequireAuthentication');
 const AuthMiddleware = require('./Middlewares/AuthMiddleware');
 const SecureRoutes = require('./Endpoints/SecureRoutes');
-app.use("/api/secure",AuthMiddleware,SecureRoutes);
+app.use("/api/secure",AuthMiddleware,RequireAuthentication,SecureRoutes);
 
 const UnsecureRoutes = require('./Endpoints/UnsecureRoutes');
-app.use("/api/unsecure",UnsecureRoutes);
+app.use("/api/unsecure",AuthMiddleware,UnsecureRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

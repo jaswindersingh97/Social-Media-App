@@ -14,7 +14,10 @@ const {
     followUser,
     privacy,
     } = require('./../Controllers/SecureControllers');
+
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
+// const RequireAuthentication = require('../Middlewares/RequireAuthentication');
+// router.use(RequireAuthentication);
 
 // User based routes
 router.get("/users/profile",profile);   // getting the logged in profile
@@ -27,13 +30,14 @@ router.delete("/posts/:postId",ValidationMiddleware("DeletePost"),DeletePost);  
 router.put("/posts/:postId",ValidationMiddleware("UpdatePost"),UpdatePost); // Updating a post
 
 // Comment and Like Management
-router.post("/comments:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
+router.post("/comments/:postId",ValidationMiddleware("AddComment"),AddComment); // creating a comment
 router.patch("/like/:postId",ValidationMiddleware("LikePost"),LikePost);    // liking a post
 
 // Follow System
-router.post("/users/follow:memberId",ValidationMiddleware("followUser"),followUser) // to follow and unfollow a user
+router.post("/users/follow/:memberId",ValidationMiddleware("followUser"),followUser) // to follow and unfollow a user
 
 // Settings routes
-router.patch("/Users/settings/UpdatePassword",ValidationMiddleware("UpdatePassword"),UpdatePassword);    // Updating the  Password
+router.patch("/Users/settings/UpdatePassword",ValidationMiddleware("updatePassword"),UpdatePassword);    // Updating the  Password
 router.patch("/Users/settings/privacy",ValidationMiddleware("privacy"),privacy);    // Updating the profile type 
+
 module.exports = router;

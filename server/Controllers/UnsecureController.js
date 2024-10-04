@@ -2,18 +2,35 @@ const User = require("../Models/UserModel");
 const Post = require("../Models/PostModel");
 
 // User based controller
-const getUser = async(req,res) =>{
-    try{
+const getUser = async (req, res) => {
+    try {
         const userId = req.params.userId;
-        const response = await User.findOne({_id:userId});
+        const response = await User.findOne({ _id: userId });
 
-        res.status(200).json({message:"user Found", response});
-    }
-    catch(error){
-        console.error("fetching error",error);
-        res.status(500).json({error:"error while fetching user"})
+        if (!response) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (req.isAuthenticated === true) {
+            const loggedUserId = req.user.userId; // Assuming req.user contains { userId, ... }
+
+            // Check if the logged-in user is in the blocked users list
+            if (response.blockedUsers.includes(loggedUserId)) {
+                // If blocked, return limited user info
+                const limitedResponse = await User.findOne({ _id: userId })
+                    .select('name profilePhoto bio');
+                return res.status(200).json(limitedResponse);
+            }
+        }
+
+        // If not blocked, return full user info
+        res.status(200).json({ message: "User found", user: response });
+    } catch (error) {
+        console.error("Error fetching user", error);
+        res.status(500).json({ error: "Error while fetching user" });
     }
 };
+
 
 // Post based controllers
 const getPost = async(req,res) =>{
