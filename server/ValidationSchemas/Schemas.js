@@ -122,5 +122,17 @@ const schemas = {
             profileType: Joi.string().valid('public','private').required(),
         }),
     },
+    feed:{
+        query: Joi.object({
+            page: Joi.number().optional(),
+            limit: Joi.number().max(50).optional(),
+        }),
+    },
+    explore:{
+        query: Joi.object({
+            page: Joi.number().optional(),
+            limit: Joi.number().max(50).optional(),
+        }),
+    },
 };
 module.exports = schemas;

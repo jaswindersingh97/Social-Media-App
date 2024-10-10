@@ -13,6 +13,8 @@ const {
     LikePost,
     followUser,
     privacy,
+    generateFeed,
+    getExplore
     } = require('./../Controllers/SecureControllers');
 
 const ValidationMiddleware = require('../Middlewares/ValidationMiddleware');
@@ -39,5 +41,9 @@ router.post("/users/follow/:memberId",ValidationMiddleware("followUser"),followU
 // Settings routes
 router.patch("/Users/settings/UpdatePassword",ValidationMiddleware("updatePassword"),UpdatePassword);    // Updating the  Password
 router.patch("/Users/settings/privacy",ValidationMiddleware("privacy"),privacy);    // Updating the profile type 
+
+// feed routes
+router.get("/feed",ValidationMiddleware("feed"),generateFeed);   // Getting the feed based on following
+router.get("/explore", ValidationMiddleware("explore"),getExplore); // Getting the feed based on trending post
 
 module.exports = router;

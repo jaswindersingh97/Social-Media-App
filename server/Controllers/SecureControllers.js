@@ -342,18 +342,59 @@ const privacy = async(req,res) =>{
     }
 };
 
+const generateFeed = async(req,res) =>{
+    try {
+        const {userId} = req.user;
+        const { page = 1, limit = 10 } = req.query; // Defaults to page 1 and 10 posts per page
+
+        const user = await User.findById(userId);
+        const following = user.following;
+
+        const posts = await Post.find({ user: { $in: following } })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(parseInt(limit))
+        .populate('user', 'username avatar')
+        
+        return res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error while generating feed",error);
+        return res.status(500).json({error:"Server error while generating the feed of user"})
+    }
+};
+
+const getExplore = async(req,res) =>{
+    try {
+        const {userId} = req.user;
+        const { page = 1, limit = 10 } = req.query; // Defaults to page 1 and 10 posts per page
+
+        const posts = await Post.find()
+        .sort({ likes: -1, createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(parseInt(limit))
+        .populate('user', 'username avatar')
+
+        return res.status(200).json(posts);  
+        
+    } catch (error) {        
+        console.error("Error while getting Explore",error);
+        return res.status(500).json({error:"Server error while generating getting explore"});        
+    }
+}
+
 module.exports = { 
     profile, 
     updateUser, 
     UpdatePassword, 
     deleteUser, 
     CreatePost, 
-    // getPost, 
     DeletePost, 
     UpdatePost, 
     AddComment,
     LikePost,
     followUser,
     privacy,
+    generateFeed,
+    getExplore
 };
 
