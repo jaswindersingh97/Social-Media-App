@@ -1,3 +1,4 @@
+const { query } = require('express');
 const Joi = require('joi');
 
 const schemas = {    
@@ -134,5 +135,19 @@ const schemas = {
             limit: Joi.number().max(50).optional(),
         }),
     },
+    searchKeyword:{
+        query: Joi.object({
+            keyword:Joi.string().required(), 
+            page: Joi.number().integer().default(1).optional(),
+            limit: Joi.number().integer().default(10).optional(),
+        }),
+    },
+    searchUser:{
+        query: Joi.object({
+            keyword:Joi.string().required(), 
+            page: Joi.number().integer().default(1).optional(),
+            limit: Joi.number().integer().default(10).optional(),
+        }),
+    }
 };
 module.exports = schemas;

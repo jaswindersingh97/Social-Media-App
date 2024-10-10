@@ -11,7 +11,10 @@ const {
     getFullPost,
     getPostsByUserId,
     getFollowers,
-    getFollowing
+    getFollowing,
+    getSearch,
+    searchUser,
+    searchPost
     } = require('./../Controllers/UnsecureController');
 
 //User based routes
@@ -28,4 +31,8 @@ router.get("/posts/user/:userId",ValidationMiddleware("getPostsByUserId"),getPos
 router.get("/users/followers:userId",ValidationMiddleware("getFollowers"),getFollowers);    // to get followers for a particular user
 router.get("/users/following:userId",ValidationMiddleware("getFollowing"),getFollowing);    // to get Following for a particular user
 
+//Search Based routes
+router.get("/searchKeyword",ValidationMiddleware("searchKeyword"),getSearch); // Search a particular post or user
+router.get("/searchUser",ValidationMiddleware("searchUser"),searchUser);    // Search a particular user
+router.get("/searchPost",ValidationMiddleware("searchPost"),searchPost);    //Search a particular post
 module.exports = router;
