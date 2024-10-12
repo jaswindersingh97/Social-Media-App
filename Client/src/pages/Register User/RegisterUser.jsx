@@ -8,7 +8,6 @@ export default function Register() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        mobile: "",
         password: "",
         confirmPassword: "",
         checkBox: false
@@ -17,7 +16,6 @@ export default function Register() {
         name: false,
         email: false,
         password: false,
-        mobile: false,
         confirmPassword: false,
         checkBox: false
     });
@@ -56,14 +54,6 @@ export default function Register() {
             className: styles.formFields
         },
         {
-            name: "mobile",
-            type: "text",
-            placeholder: "Enter your mobile number",
-            value: formData.mobile,
-            onChange: (e) => setFormData({ ...formData, mobile: e.target.value }),
-            className: styles.formFields
-        },
-        {
             name: "checkBox",
             type: "checkbox",
             label: "Agree to terms and conditions",
@@ -94,11 +84,6 @@ export default function Register() {
             isValid: formData.confirmPassword === formData.password,
             onError: () => setError((prev) => ({ ...prev, confirmPassword: true }))
         },
-        mobile: {
-            message: "Mobile number is required",
-            isValid: formData.mobile.length == 10,
-            onError: () => setError((prev) => ({ ...prev, mobile: true }))
-        },
         checkBox: {
             message: "You must agree to terms and conditions",
             isValid: formData.checkBox,
@@ -110,13 +95,12 @@ export default function Register() {
         e.preventDefault();
         let isError = false;
 
-        const updatedError = {};
+        let updatedError = {};
 
         Object.keys(errorMessages).forEach((key) => {
             if (!errorMessages[key].isValid) {
                 isError = true;
                 updatedError[key] = true;
-                errorMessages[key].onError();
             } else {
                 updatedError[key] = false;
             }
