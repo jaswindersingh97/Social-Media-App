@@ -6,7 +6,6 @@ export default function Register() {
         email: "",
         password: "",
         confirmPassword: "",
-        checkBox: false
     });
     const [error, setError] = useState({        // to save the error of any value
         name: false,
@@ -91,14 +90,6 @@ export default function Register() {
         setError(updatedError);
 
         if (!isError) {
-            // Uncomment when the register function is implemented
-            // const res = await register(formData);
-            // if (res.status === 201) {
-            //     alert("Registered successfully");
-            //     navigate("/login"); 
-            // } else {
-            //     alert("Something went wrong");
-            // }
         }
     };
 
