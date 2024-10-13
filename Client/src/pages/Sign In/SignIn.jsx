@@ -63,15 +63,15 @@ const onSubmit = async (e) => {
 };
 
   return (
-    <AuthPageLayout Component={
-      <Form 
-          heading={"Sign In"}
-          error={error} 
-          formFields={formFields} 
-          onSubmit={onSubmit} 
-          errorMessages={errorMessages}
-      />}
-  />
+      <AuthPageLayout Component={
+            <Form 
+                heading={"Sign In"}
+                error={error} 
+                formFields={formFields} 
+                onSubmit={onSubmit} 
+                errorMessages={errorMessages}
+            />}
+        />
   )
 }
 
