@@ -1,15 +1,21 @@
 import { useState } from "react";
 import {AuthPageLayout,Form} from "../../components/index";
 import { ValidateFields } from "../../HelperFunction/ValidateFields";
+import apiRequest from "../../Apis/apiRequest";
+import {useNavigate} from 'react-router-dom';
 export default function Register() {
+    const endpoint= "/auth/register";
+    const navigate = useNavigate();
+    const [responseWindow,setResponseWindow]= useState(false);
+    const [responseMessage,setResponseMessage] =useState("");
     const [formData, setFormData] = useState({      // to save the current state of input fields
-        name: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
     const [error, setError] = useState({        // to save the error of any value
-        name: false,
+        username: false,
         email: false,
         password: false,
         confirmPassword: false,
@@ -17,11 +23,11 @@ export default function Register() {
 
     const formFields = [
         {
-            name: "name",
+            name: "username",
             type: "text",
             placeholder: "Enter your name",
-            value: formData.name,
-            onChange: (e) => setFormData({ ...formData, name: e.target.value }),
+            value: formData.username,
+            onChange: (e) => setFormData({ ...formData, username: e.target.value }),
         },
         {
             name: "email",
@@ -51,9 +57,9 @@ export default function Register() {
     ];
 
     const errorMessages = {
-        name: {
+        username: {
             message: "Name is required",
-            isValid: formData.name.length > 0,
+            isValid: formData.username.length > 0,
             onError: () => setError((prev) => ({ ...prev, name: true }))
         },
         email: {
@@ -76,22 +82,52 @@ export default function Register() {
     const onSubmit = async (e) => {
         e.preventDefault();
         const {isError,updatedError} = ValidateFields(errorMessages) 
-
         setError(updatedError);
-
-        if (!isError) {
+        const { confirmPassword, ...dataToSend } = formData;
+        console.log(dataToSend)
+        if (!isError) {        
+            const response = await apiRequest({
+            endpoint: endpoint,
+            method: 'post',
+            data: dataToSend
+        });
+        console.log(response)
+        // Check if the response indicates a success
+        if (response.status === 200 ||response.status === 201) {
+          console.log(response)
+            setResponseMessage("registered successfully,redirecting in 3 sec");
+            setResponseWindow(true);
+            setTimeout(() => {
+                setResponseWindow(false);
+                navigate('/signIn'); // Redirect to home after 3 seconds
+            }, 5000);
+        } else {
+            // Handle error cases (including 400 for validation)
+            setResponseMessage(response.data.error || "Something went wrong");
+            setResponseWindow(true);
+        }
         }
     };
 
     return (
-        <AuthPageLayout Component={
-            <Form 
-                heading={"Register"}
-                error={error} 
-                formFields={formFields} 
-                onSubmit={onSubmit} 
-                errorMessages={errorMessages}
-            />}
+        <AuthPageLayout 
+            Component={
+                <>
+                <Form 
+                    heading={"Register"}
+                    error={error} 
+                    formFields={formFields} 
+                    onSubmit={onSubmit} 
+                    errorMessages={errorMessages}
+                />
+                        {responseWindow && (
+          <div className="response-window">
+            {responseMessage}
+          </div>)}
+
+                </>
+                }
+            responseWindow={responseWindow}
         />
     );
 }

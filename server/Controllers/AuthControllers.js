@@ -40,7 +40,7 @@ const loginUser = async(req,res) =>{
         }
             
         // Compare the provided password with the hashed password in the database
-        const isMatch = bcrypt.compare(password,user.password);
+        const isMatch = await bcrypt.compare(password,user.password);
         if(!isMatch){
             return res.status(400).json({error:"Invalid email or password."});
         }
@@ -58,7 +58,7 @@ const loginUser = async(req,res) =>{
     }
     catch(error){
         console.error('Registration error:', error);
-        res.status(500).json({ error: 'Server error during registration.' });
+        res.status(500).json({ error: 'Server error during login.' });
     }
 
 };

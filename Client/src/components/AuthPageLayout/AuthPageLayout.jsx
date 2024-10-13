@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './AuthPageLayout.module.css';
 
-function AuthPageLayout({Component}) {
+function AuthPageLayout({Component,responseWindow = false}) {
   return (
     <div className={styles.container}>
         <div className={styles.left}>
