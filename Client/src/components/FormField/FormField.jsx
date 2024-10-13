@@ -1,4 +1,5 @@
 import React,{Fragment} from 'react';
+import styles from './FormField.module.css';
 function FormField({ name, type, placeholder, value, onChange, label, className }) {
     return (
         <>
@@ -16,9 +17,11 @@ function FormField({ name, type, placeholder, value, onChange, label, className 
     );
 }
 
-export default function Form({ formFields, onSubmit, error, errorMessages }) {
+export default function Form({ heading, formFields, onSubmit, error, errorMessages }) {
     return (
         <form onSubmit={onSubmit}>
+            <h1>{heading}
+            {console.log(heading)}</h1>
             {formFields.map((field, index) => (
                 <Fragment key={index}>
                     <FormField 

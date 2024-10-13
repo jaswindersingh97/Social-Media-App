@@ -1,23 +1,18 @@
-import Form from "./../../components/FormField/FormField";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from './RegisterUser.module.css';
-
+import {AuthPageLayout,Form} from "../../components/index";
 export default function Register() {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({      // to save the current state of input fields
         name: "",
         email: "",
         password: "",
         confirmPassword: "",
         checkBox: false
     });
-    const [error, setError] = useState({
+    const [error, setError] = useState({        // to save the error of any value
         name: false,
         email: false,
         password: false,
         confirmPassword: false,
-        checkBox: false
     });
 
     const formFields = [
@@ -27,7 +22,6 @@ export default function Register() {
             placeholder: "Enter your name",
             value: formData.name,
             onChange: (e) => setFormData({ ...formData, name: e.target.value }),
-            className: styles.formFields
         },
         {
             name: "email",
@@ -35,7 +29,7 @@ export default function Register() {
             placeholder: "Enter your email",
             value: formData.email,
             onChange: (e) => setFormData({ ...formData, email: e.target.value }),
-            className: styles.formFields
+            
         },
         {
             name: "password",
@@ -43,7 +37,7 @@ export default function Register() {
             placeholder: "Enter your password",
             value: formData.password,
             onChange: (e) => setFormData({ ...formData, password: e.target.value }),
-            className: styles.formFields
+            
         },
         {
             name: "confirmPassword",
@@ -51,16 +45,9 @@ export default function Register() {
             placeholder: "Confirm your password",
             value: formData.confirmPassword,
             onChange: (e) => setFormData({ ...formData, confirmPassword: e.target.value }),
-            className: styles.formFields
+            
         },
-        {
-            name: "checkBox",
-            type: "checkbox",
-            label: "Agree to terms and conditions",
-            checked: formData.checkBox,
-            onChange: (e) => setFormData({ ...formData, checkBox: e.target.checked }),
-            className: styles.textbox
-        }
+       
     ];
 
     const errorMessages = {
@@ -84,11 +71,6 @@ export default function Register() {
             isValid: formData.confirmPassword === formData.password,
             onError: () => setError((prev) => ({ ...prev, confirmPassword: true }))
         },
-        checkBox: {
-            message: "You must agree to terms and conditions",
-            isValid: formData.checkBox,
-            onError: () => setError((prev) => ({ ...prev, checkBox: true }))
-        }
     };
 
     const onSubmit = async (e) => {
@@ -121,14 +103,14 @@ export default function Register() {
     };
 
     return (
-        <>
-            <p>Register</p>
+        <AuthPageLayout Component={
             <Form 
+                heading={"Register"}
                 error={error} 
                 formFields={formFields} 
                 onSubmit={onSubmit} 
-                errorMessages={errorMessages} 
-            />
-        </>
+                errorMessages={errorMessages}
+            />}
+        />
     );
 }

@@ -1,0 +1,23 @@
+form{
+    display: flex;
+    flex-direction: column;
+    padding-inline: 20px;
+    align-items: center;
+    gap:20px;
+}
+p{
+    color: red;
+    margin: 0px;
+}
+input{
+    padding: 10px;
+    width: 70%;
+    display: inline;
+}
+h1{
+    color: var(--blue);
+}
+form button{
+    color: white;
+    background-color: var(--blue);
+}
