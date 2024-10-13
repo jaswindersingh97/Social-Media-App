@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {AuthPageLayout,Form} from './../../components/index';
+import { ValidateFields } from '../../HelperFunction/ValidateFields';
 function SignIn() {
   const [formData, setFormData] = useState({      // to save the current state of input fields
     email: "",
@@ -43,19 +44,7 @@ const errorMessages = {
 
 const onSubmit = async (e) => {
     e.preventDefault();
-    let isError = false;
-
-    let updatedError = {};
-
-    Object.keys(errorMessages).forEach((key) => {
-        if (!errorMessages[key].isValid) {
-            isError = true;
-            updatedError[key] = true;
-        } else {
-            updatedError[key] = false;
-        }
-    });
-
+    const {isError,updatedError} = ValidateFields(errorMessages) 
     setError(updatedError);
 
     if (!isError) {
