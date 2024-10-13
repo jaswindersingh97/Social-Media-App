@@ -63,6 +63,7 @@ function SignIn() {
         if (response.status === 200) {
           console.log(response)
             setResponseMessage("Logged in successfully,redirecting in 3 sec");
+            localStorage.setItem("token",response.data.token);
             setResponseWindow(true);
             setTimeout(() => {
                 setResponseWindow(false);
