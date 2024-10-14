@@ -14,4 +14,4 @@ function AuthPageLayout({Component,responseWindow = false}) {
   )
 }
 
-export default AuthPageLayout
+export default AuthPageLayout;

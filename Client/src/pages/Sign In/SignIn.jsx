@@ -67,7 +67,7 @@ function SignIn() {
             setResponseWindow(true);
             setTimeout(() => {
                 setResponseWindow(false);
-                // navigate('/home'); // Redirect to home after 3 seconds
+                navigate('/'); // Redirect to home after 3 seconds
             }, 5000);
         } else {
             // Handle error cases (including 400 for validation)
