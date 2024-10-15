@@ -34,6 +34,15 @@
     text-decoration: underline;
 }
 .body{
+    display: flex;
+    flex-direction: column;
+}
+.content{
     padding: 10px;
-    padding-inline: 50px;
+    padding-left: 50px;
+}
+.buttons{
+    display: flex;
+    padding-left: 50px;
+    gap: 20px;
 }

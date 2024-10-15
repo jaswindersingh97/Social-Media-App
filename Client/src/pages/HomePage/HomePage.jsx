@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './HomePage.module.css';
-import {MainBodyCreatePost,Post,HeaderList} from './../../components/index';
+import {MainBodyCreatePost,Posts,HeaderList} from './../../components/index';
 function HomePage() {
   const Lst = [{title:"For You", link : "/"},{title:"Following", link : "/"}]
   return (
@@ -10,7 +10,7 @@ function HomePage() {
       </div>
       <div className={styles.body}>
         <MainBodyCreatePost/>
-        <Post/>
+        <Posts/>
       </div>
       
     </div>

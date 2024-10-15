@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import React from 'react'
-
+import { FaRegCommentDots } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
+import { FcLike } from "react-icons/fc";
 function Post() {
   const navigate = useNavigate();
   const Post ={
@@ -11,7 +13,9 @@ function Post() {
     Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
     DateTime:"15-10-2024 13423",
     _id:'xyz to be used with on click for route',
-    userId:"abc to be used on clicking of profile"
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
   }
   const onProfileClk = (e) =>{
     e.stopPropagation();
@@ -19,6 +23,14 @@ function Post() {
   }
   const onPostClk = () =>{
     navigate(`/Post/${Post._id}`)
+  }
+  const onLike = (e) =>{
+    e.stopPropagation();
+    alert("like")
+  }
+  const onComment = (e) =>{
+    e.stopPropagation();
+    alert("Comment")
   }
   return (
     <div onClick={onPostClk} className={styles.container}>
@@ -39,10 +51,61 @@ function Post() {
         </div>
       </div>  
       <div className={styles.body}>
-        <span>{Post.Content}</span>
+        <div className={styles.content}>{Post.Content}</div>
+        <div className={styles.buttons}>
+          <button onClick={onComment}>
+            <FaRegCommentDots/>
+            <span>{Post.likes.length}</span>
+          </button>
+          <button onClick={onLike}>
+            <CiHeart/>
+            <span>{Post.likes.length}</span>
+          </button>
+        </div>
       </div>
     </div>
   )
 }
 
-export default Post
+function PostGroup() {
+  const Posts=[{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
+  },{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
+  },{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
+  }];
+  return (
+    <div>
+      {Posts.map((item, index) => (
+        <Post key={index} Post={item} />
+      ))}
+    </div>
+  )
+}
+export default PostGroup;
+
