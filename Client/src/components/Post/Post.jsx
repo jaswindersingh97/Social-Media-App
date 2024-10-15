@@ -98,6 +98,36 @@ function PostGroup() {
     userId:"abc to be used on clicking of profile",
     comments:["a","b","c"],
     likes:["a","b","c"]
+  },{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
+  },{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
+  },{
+    Avatar:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    UserName:"TestingPost",
+    email:"TestingMail@gmail.com",
+    Content:"hi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi therehi there",
+    DateTime:"15-10-2024 13423",
+    _id:'xyz to be used with on click for route',
+    userId:"abc to be used on clicking of profile",
+    comments:["a","b","c"],
+    likes:["a","b","c"]
   }];
   return (
     <div>
