@@ -6,7 +6,9 @@ function MainBodyCreatePost() {
     const [PostContent,setPostContent]=useState("")
     const postSubmit = (e) =>{
         e.preventDefault()
-        alert(PostContent)
+        if(PostContent.trim()){
+          alert(PostContent)
+        }
     }
   return (
     <div className={styles.container}>
@@ -22,6 +24,7 @@ function MainBodyCreatePost() {
         onChange={(e)=>{setPostContent(e.target.value)}} 
         placeholder="What's Happening!"    
         />
+        <span>Character limit: {150-PostContent.length}</span>
         <button type='submit'>Post</button>
       </form>
       </div>
