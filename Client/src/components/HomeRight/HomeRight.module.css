@@ -1,0 +1,31 @@
+.container{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+}
+.header{
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    width: 100%;
+}
+.header input{
+    width: 100%;
+    border-radius: 20px;
+}
+.header svg{
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    right: 34px;
+    top: 5px;
+    border-radius:50px ;
+}
+.header svg:hover{
+    background: var(--hover);
+
+}

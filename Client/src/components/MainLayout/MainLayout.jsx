@@ -4,6 +4,7 @@ import Left from '../Left/Left';
 import fetchUserProfile from '../../Apis/fetchUserProfile';
 import styles from './MainLayout.module.css';
 import { AppContext } from '../../Context/AppContext';
+import HomeRight from '../HomeRight/HomeRight';
 function MainLayout() {
   const navigate = useNavigate();
   const {user, setUser} = useContext(AppContext);
@@ -29,7 +30,7 @@ function MainLayout() {
         <Outlet />
       </div>
       <div className={styles.right}>
-        right
+        <HomeRight/>
       </div>
     </div>
   );
