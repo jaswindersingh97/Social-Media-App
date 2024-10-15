@@ -1,6 +1,14 @@
 :root {
-    --blue: #9b98ff;
+    --border-radius:15px;
+    --heading-font-size:30px;
+    --subHeading-font-size:26px;
+    --paragraph:14px;
+    --background-color:white;
+    --background-color-button:rgba(210, 210, 213, 0.563);
+    --border: #4d48f6; 
+    --text-color: #5c56f3;
+    --active:rgb(146, 146, 146);
     --hover:rgb(231, 231, 243);
-    --img:url("assets/seamless-pattern-with-different-social-media-icons_405287-75.avif");
+    --Authentication-Page-background-img:url("assets/seamless-pattern-with-different-social-media-icons_405287-75.avif");
   }
   
