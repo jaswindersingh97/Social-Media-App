@@ -1,0 +1,12 @@
+
+.HeaderItem{
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            border: 1px,var(--border),solid;
+            cursor: pointer;
+}
+.HeaderItem:hover{
+    background-color: var(--hover);
+}
+    

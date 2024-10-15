@@ -13,15 +13,6 @@
 .header{
     display: flex;
 }
-.HeaderItem{
-    padding: 10px;
-    text-align: center;
-    width: 100%;
-    border: 1px,var(--border),solid;
-}
-.HeaderItem:hover{
-    background-color: var(--hover);
-}
 .body{
     box-sizing: border-box;
     flex: 1;

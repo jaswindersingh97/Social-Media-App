@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px,var(--border),solid;
+}
+.container:hover{
+    background-color: var(--hover);
+}
+.Header{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.left img{
+    border: 2px,var(--border),solid;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+.right{
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.time{
+    font-size:smaller;
+    font-style: oblique;
+}
+.time:hover, .title:hover{
+    text-decoration: underline;
+}
+.body{
+    padding: 10px;
+    padding-inline: 50px;
+}
