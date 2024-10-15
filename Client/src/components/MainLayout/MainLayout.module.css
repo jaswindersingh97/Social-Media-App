@@ -9,12 +9,8 @@
 .left {
 	grid-area: 1 / 1 / 11 / 2;
 }
-.mainHeader {
-	grid-area: 1 / 2 / 3 / 5;
-	background-color: rgba(152,68,191, 0.5);
-}
-.mainBody {
-	grid-area: 3 / 2 / 11 / 5;
+.main {
+	grid-area: 1 / 2 / 11 / 5;
 	background-color: rgba(11,178,124, 0.5);
 }
 .right {

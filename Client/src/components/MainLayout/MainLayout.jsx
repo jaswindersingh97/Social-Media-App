@@ -25,11 +25,7 @@ function MainLayout() {
       <div className={styles.left}>
         <Left />
       </div>
-      <div className={styles.mainHeader}>
-        mainHeader
-      </div>
-      <div className={styles.mainBody}>
-        Main
+      <div className={styles.main}>
         <Outlet />
       </div>
       <div className={styles.right}>
