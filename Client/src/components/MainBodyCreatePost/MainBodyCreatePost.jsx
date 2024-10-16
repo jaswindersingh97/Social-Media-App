@@ -1,13 +1,16 @@
 import { useContext, useState } from 'react';
 import styles from './MainBodyCreatePost.module.css';
 import {AppContext} from './../../Context/AppContext';
+import createPost from '../../Apis/createPost';
 function MainBodyCreatePost() {
     const {user} = useContext(AppContext);
     const [PostContent,setPostContent]=useState("")
-    const postSubmit = (e) =>{
+    const postSubmit = async(e) =>{
         e.preventDefault()
         if(PostContent.trim()){
-          alert(PostContent)
+          const {message,response} = await createPost(PostContent);
+          console.log(message,response)
+          setPostContent("")
         }
     }
   return (
