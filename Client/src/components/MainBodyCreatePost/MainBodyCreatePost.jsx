@@ -3,13 +3,15 @@ import styles from './MainBodyCreatePost.module.css';
 import {AppContext} from './../../Context/AppContext';
 import createPost from '../../Apis/createPost';
 function MainBodyCreatePost() {
-    const {user} = useContext(AppContext);
+    const {user,setPosts} = useContext(AppContext);
+    const maxLength = 500;
     const [PostContent,setPostContent]=useState("")
     const postSubmit = async(e) =>{
         e.preventDefault()
         if(PostContent.trim()){
-          const {message,response} = await createPost(PostContent);
-          console.log(message,response)
+          let {message,response} = await createPost(PostContent);
+          response.user = user;
+          setPosts((posts)=>[response,...posts]);
           setPostContent("")
         }
     }
@@ -25,9 +27,10 @@ function MainBodyCreatePost() {
         name='PostContent' 
         value={PostContent} 
         onChange={(e)=>{setPostContent(e.target.value)}} 
-        placeholder="What's Happening!"    
+        placeholder="What's Happening!"
+        maxLength={maxLength}
         />
-        <span>Character limit: {150-PostContent.length}</span>
+        <span>Character limit: {maxLength-PostContent.length}</span>
         <button type='submit'>Post</button>
       </form>
       </div>

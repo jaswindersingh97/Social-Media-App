@@ -4,13 +4,17 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [postWindow,setPostWindow] = useState(false);
+    const [posts,setPosts] = useState();
+
     return (
       <AppContext.Provider 
       value={{ 
         user, 
         setUser,
         postWindow,
-        setPostWindow
+        setPostWindow,
+        posts,
+        setPosts
         }}>
         {children}
       </AppContext.Provider>

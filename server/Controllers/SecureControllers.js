@@ -99,7 +99,6 @@ const CreatePost = async(req, res) =>{
             content:content,
             media:media
             });
-
         return res.status(200).json({message:"Post created successfully", response});
     
     }catch(error){
@@ -350,11 +349,11 @@ const generateFeed = async(req,res) =>{
         const user = await User.findById(userId);
         const following = user.following;
 
-        const posts = await Post.find({ user: { $in: following } })
+        const posts = await Post.find({ user: { $in: [...following,userId] } })
         .sort({ createdAt: -1 })
         .skip((page - 1) * limit)
         .limit(parseInt(limit))
-        .populate('user', 'username avatar')
+        .populate('user')
         
         return res.status(200).json(posts);
     } catch (error) {

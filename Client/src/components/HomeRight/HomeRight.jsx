@@ -3,7 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import React, { useState } from 'react'
 
 function HomeRight() {
-    const [search,setSearch] = useState();
+    const [search,setSearch] = useState("");
     const SearchHandler = (e) =>{
         e.preventDefault()
         if(search.trim()){
